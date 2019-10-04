@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -32,8 +33,8 @@ public class PersonController {
 		response.setHeader("Access-Control-Allow-Origin", "*");
 		response.setHeader("Access-Control-Allow-Methods", "GET,POST,OPTIONS,DELETE,PUT");
 	}
-	@RequestMapping(method=RequestMethod.GET)
-	public ResponseEntity <List<Person>> getPersonByFirstName(@RequestParam("firstName") String firstName){
+	@RequestMapping(path = "{firstName}",method=RequestMethod.GET)
+	public ResponseEntity <List<Person>> getPersonByFirstName(@PathVariable(name="firstName") String firstName){
 		LOG.info("Firstname of person to search for is {}",firstName);
 		if(Optional.ofNullable(firstName).isPresent())
 			return new ResponseEntity<>(

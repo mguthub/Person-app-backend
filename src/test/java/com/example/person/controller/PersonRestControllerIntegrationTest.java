@@ -52,8 +52,7 @@ public class PersonRestControllerIntegrationTest {
 	
 	@Test
 	public void verifyByFirstName() throws Exception {
-		String name="Nik";
-		mockMvc.perform(MockMvcRequestBuilders.get("/api/persons").param("firstName", name).accept(MediaType.APPLICATION_JSON))
+		mockMvc.perform(MockMvcRequestBuilders.get("/api/persons/Nik").accept(MediaType.APPLICATION_JSON))
 		.andExpect(jsonPath("$[0].firstName").exists())
 		.andExpect(jsonPath("$[0].lastName").exists())  
 		.andExpect(jsonPath("$[1].firstName").exists())
@@ -63,7 +62,7 @@ public class PersonRestControllerIntegrationTest {
 
 	@Test
 	public void verifyInvalidURL() throws Exception {
-		mockMvc.perform(MockMvcRequestBuilders.get("/api/persons/f").accept(MediaType.APPLICATION_JSON))
+		mockMvc.perform(MockMvcRequestBuilders.get("/api/persons/f/p").accept(MediaType.APPLICATION_JSON))
 			.andExpect(status().isNotFound())
 			.andDo(print());
 	}
